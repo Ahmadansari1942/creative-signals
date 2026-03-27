@@ -1,0 +1,104 @@
+<%- include('partials/header', { title, currentPage: 'blog' }) %>
+
+<!-- Article Header -->
+<article class="article-page">
+  <header class="article-header">
+    <div class="container">
+      <a href="/blog" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Writings
+      </a>
+      
+      <div class="article-meta-header">
+        <span class="article-category"><%= article.category %></span>
+        <span class="article-date"><%= new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></span>
+        <span class="article-read-time"><%= article.readTime %></span>
+      </div>
+      
+      <h1 class="article-title"><%= article.title %></h1>
+      <p class="article-excerpt"><%= article.excerpt %></p>
+      
+      <div class="article-tags">
+        <% article.tags.forEach(tag => { %>
+          <span class="article-tag">#<%= tag %></span>
+        <% }); %>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Demo Canvas -->
+  <% if (article.hasDemo) { %>
+    <div class="article-demo">
+      <canvas id="articleDemo" class="demo-canvas"></canvas>
+      <div class="demo-controls">
+        <button class="demo-btn" id="demoPlayPause">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </button>
+        <button class="demo-btn" id="demoReset">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 4v6h6M23 20v-6h-6"/>
+            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  <% } %>
+  
+  <!-- Article Content -->
+  <div class="article-content">
+    <div class="container">
+      <div class="article-body">
+        <% article.content.split('\n\n').forEach(paragraph => { %>
+          <p><%= paragraph %></p>
+        <% }); %>
+      </div>
+      
+      <!-- Share -->
+      <div class="article-share">
+        <span class="share-label">Share this article</span>
+        <div class="share-buttons">
+          <a href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(article.title) %>&url=<%= encodeURIComponent('https://creativesignals.art/blog/' + article.slug) %>" target="_blank" rel="noopener" class="share-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= encodeURIComponent('https://creativesignals.art/blog/' + article.slug) %>&title=<%= encodeURIComponent(article.title) %>" target="_blank" rel="noopener" class="share-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <button class="share-btn copy-link" data-url="https://creativesignals.art/blog/<%= article.slug %>">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Related Articles -->
+  <% if (relatedArticles.length > 0) { %>
+    <section class="related-section">
+      <div class="container">
+        <h2 class="related-title">Related Writings</h2>
+        <div class="related-grid">
+          <% relatedArticles.forEach(related => { %>
+            <a href="/blog/<%= related.slug %>" class="related-card">
+              <span class="related-category"><%= related.category %></span>
+              <h3 class="related-article-title"><%= related.title %></h3>
+              <span class="related-read"><%= related.readTime %></span>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    </section>
+  <% } %>
+</article>
+
+<%- include('partials/footer') %>
