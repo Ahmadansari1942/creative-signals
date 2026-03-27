@@ -1,0 +1,180 @@
+<%- include('partials/header', { title, currentPage: 'home' }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-background">
+    <canvas id="heroCanvas"></canvas>
+  </div>
+  <div class="hero-content">
+    <div class="hero-label">
+      <span class="label-line"></span>
+      <span>Technology + Art</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="title-line">Signals from the</span>
+      <span class="title-line title-accent">Creative Edge</span>
+    </h1>
+    <p class="hero-description">
+      Experiments, writings, and explorations at the intersection of code and creativity. Where technology becomes a medium for artistic expression.
+    </p>
+    <div class="hero-actions">
+      <a href="/experiments" class="btn btn-primary">
+        <span>View Experiments</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="/blog" class="btn btn-secondary">Read Writings</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="scroll-indicator"></div>
+  </div>
+</section>
+
+<!-- Featured Section -->
+<section class="section featured-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Featured</span>
+      <h2 class="section-title">Recent Explorations</h2>
+    </div>
+    
+    <div class="featured-grid">
+      <% featuredArticles.forEach((article, index) => { %>
+        <a href="/blog/<%= article.slug %>" class="featured-card" data-index="<%= index %>">
+          <div class="card-number"><%= String(index + 1).padStart(2, '0') %></div>
+          <div class="card-content">
+            <span class="card-category"><%= article.category %></span>
+            <h3 class="card-title"><%= article.title %></h3>
+            <p class="card-excerpt"><%= article.excerpt %></p>
+            <div class="card-meta">
+              <span class="card-date"><%= new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+              <span class="card-read"><%= article.readTime %> read</span>
+            </div>
+          </div>
+          <div class="card-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- Experiments Preview -->
+<section class="section experiments-preview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Laboratory</span>
+      <h2 class="section-title">Interactive Experiments</h2>
+      <p class="section-description">Hands-on explorations in WebGL, generative systems, and creative coding</p>
+    </div>
+    
+    <div class="experiments-grid">
+      <% featuredExperiments.forEach((exp, index) => { %>
+        <div class="experiment-card" data-index="<%= index %>">
+          <div class="experiment-preview">
+            <canvas class="experiment-canvas" id="expCanvas<%= index %>"></canvas>
+          </div>
+          <div class="experiment-info">
+            <h3 class="experiment-title"><%= exp.title %></h3>
+            <p class="experiment-desc"><%= exp.description %></p>
+            <div class="experiment-tags">
+              <% exp.tech.forEach(tag => { %>
+                <span class="tech-tag"><%= tag %></span>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    
+    <div class="section-action">
+      <a href="/experiments" class="btn btn-outline">
+        View All Experiments
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="section stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number" data-count="<%= articles.length %>">0</span>
+        <span class="stat-label">Articles Published</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" data-count="<%= experiments.length %>">0</span>
+        <span class="stat-label">Experiments</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" data-count="7">0</span>
+        <span class="stat-label">Years Exploring</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" data-count="42">0</span>
+        <span class="stat-label">Projects Completed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Writings -->
+<section class="section recent-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Writings</span>
+      <h2 class="section-title">Latest Thoughts</h2>
+    </div>
+    
+    <div class="articles-list">
+      <% recentArticles.slice(0, 5).forEach((article, index) => { %>
+        <a href="/blog/<%= article.slug %>" class="article-row" data-index="<%= index %>">
+          <span class="article-index"><%= String(index + 1).padStart(2, '0') %></span>
+          <div class="article-main">
+            <h3 class="article-title"><%= article.title %></h3>
+            <p class="article-excerpt"><%= article.excerpt.substring(0, 100) %>...</p>
+          </div>
+          <div class="article-meta">
+            <span class="article-category"><%= article.category %></span>
+            <span class="article-date"><%= new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></span>
+          </div>
+          <svg class="article-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+          </svg>
+        </a>
+      <% }); %>
+    </div>
+    
+    <div class="section-action">
+      <a href="/blog" class="btn btn-outline">View All Writings</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">Let's Create Something</h2>
+      <p class="cta-description">Open for collaborations, commissions, and conversations about the future of creative technology.</p>
+      <a href="/contact" class="btn btn-primary btn-large">
+        Start a Conversation
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
