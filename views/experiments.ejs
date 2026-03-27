@@ -1,0 +1,81 @@
+<%- include('partials/header', { title, currentPage: 'experiments' }) %>
+
+<!-- Experiments Header -->
+<section class="page-header experiments-header">
+  <div class="container">
+    <span class="page-label">Laboratory</span>
+    <h1 class="page-title">Interactive Experiments</h1>
+    <p class="page-description">A collection of interactive projects exploring WebGL, generative systems, motion design, and creative coding techniques.</p>
+  </div>
+</section>
+
+<!-- Experiments Grid -->
+<section class="section experiments-section">
+  <div class="container">
+    <div class="experiments-full-grid">
+      <% experiments.forEach((exp, index) => { %>
+        <article class="experiment-full-card" data-index="<%= index %>">
+          <div class="experiment-canvas-container">
+            <canvas class="exp-canvas" id="expCanvas<%= index %>"></canvas>
+          </div>
+          <div class="experiment-overlay">
+            <div class="experiment-header">
+              <span class="experiment-number"><%= String(index + 1).padStart(2, '0') %></span>
+              <% if (exp.featured) { %>
+                <span class="experiment-featured">Featured</span>
+              <% } %>
+            </div>
+            <h3 class="experiment-name"><%= exp.title %></h3>
+            <p class="experiment-description"><%= exp.description %></p>
+            <div class="experiment-tech">
+              <% exp.tech.forEach(tech => { %>
+                <span class="tech-badge"><%= tech %></span>
+              <% }); %>
+            </div>
+            <a href="<%= exp.demoUrl %>" class="experiment-link">
+              View Experiment
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- Process Section -->
+<section class="section process-section">
+  <div class="container">
+    <div class="process-content">
+      <h2 class="process-title">Behind the Experiments</h2>
+      <p class="process-description">Each experiment starts with a question: "What happens if...?" Some succeed, many fail, but all contribute to understanding. The process is documented in the <a href="/blog">writings section</a>.</p>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <span class="step-number">01</span>
+          <h3>Hypothesis</h3>
+          <p>Formulate a creative question or technical challenge to explore.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">02</span>
+          <h3>Prototype</h3>
+          <p>Quick iterations to test core concepts without polish.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">03</span>
+          <h3>Refine</h3>
+          <p>Develop successful prototypes into shareable experiments.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">04</span>
+          <h3>Document</h3>
+          <p>Capture learnings, code, and process for future reference.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
