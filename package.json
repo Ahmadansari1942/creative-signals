@@ -1,0 +1,22 @@
+{
+  "name": "creative-signals",
+  "version": "1.0.0",
+  "description": "Personal blog and portfolio hybrid at the intersection of technology and art",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Creative Signals",
+  "license": "MIT"
+}
