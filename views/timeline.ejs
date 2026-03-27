@@ -1,0 +1,85 @@
+<%- include('partials/header', { title, currentPage: 'timeline' }) %>
+
+<!-- Timeline Header -->
+<section class="page-header">
+  <div class="container">
+    <span class="page-label">Journey</span>
+    <h1 class="page-title">A Path Through Creativity</h1>
+    <p class="page-description">Key milestones and continuous learning in the pursuit of creative technology mastery.</p>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section class="section timeline-section">
+  <div class="container">
+    <div class="timeline">
+      <% timeline.forEach((item, index) => { %>
+        <div class="timeline-item" data-type="<%= item.type %>" data-index="<%= index %>">
+          <div class="timeline-marker">
+            <span class="marker-year"><%= item.year %></span>
+            <div class="marker-dot"></div>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-type"><%= item.type %></span>
+            <h3 class="timeline-title"><%= item.title %></h3>
+            <p class="timeline-description"><%= item.description %></p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy Section -->
+<section class="section philosophy-section">
+  <div class="container">
+    <div class="philosophy-grid">
+      <div class="philosophy-card">
+        <div class="philosophy-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3>Continuous Learning</h3>
+        <p>Every project teaches something new. The goal isn't mastery but perpetual growth.</p>
+      </div>
+      
+      <div class="philosophy-card">
+        <div class="philosophy-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3>Iterative Process</h3>
+        <p>Start simple, refine continuously. Each version builds on lessons from the last.</p>
+      </div>
+      
+      <div class="philosophy-card">
+        <div class="philosophy-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Collaboration</h3>
+        <p>The best work emerges from dialogue. Open to partnerships and shared exploration.</p>
+      </div>
+      
+      <div class="philosophy-card">
+        <div class="philosophy-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3>Open Source</h3>
+        <p>Sharing knowledge multiplies its impact. Code and learnings are shared when possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
