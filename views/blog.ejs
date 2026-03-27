@@ -1,0 +1,91 @@
+<%- include('partials/header', { title, currentPage: 'blog' }) %>
+
+<!-- Blog Header -->
+<section class="page-header">
+  <div class="container">
+    <span class="page-label">Writings</span>
+    <h1 class="page-title">Thoughts & Experiments</h1>
+    <p class="page-description">Exploring the intersection of technology, art, and creative process through long-form writing and documentation.</p>
+    
+    <!-- Search -->
+    <div class="search-container">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search articles...">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Articles Grid -->
+<section class="section blog-section">
+  <div class="container">
+    <div class="blog-stats">
+      <span><%= totalArticles %> articles</span>
+      <span>Page <%= currentPage %> of <%= totalPages %></span>
+    </div>
+    
+    <div class="blog-grid">
+      <% articles.forEach((article, index) => { %>
+        <article class="blog-card" data-category="<%= article.category.toLowerCase() %>" data-index="<%= index %>">
+          <a href="/blog/<%= article.slug %>" class="blog-card-link">
+            <div class="blog-card-header">
+              <span class="blog-card-category"><%= article.category %></span>
+              <% if (article.hasDemo) { %>
+                <span class="blog-card-demo">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                  Interactive Demo
+                </span>
+              <% } %>
+            </div>
+            <h2 class="blog-card-title"><%= article.title %></h2>
+            <p class="blog-card-excerpt"><%= article.excerpt %></p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date"><%= new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></span>
+              <span class="blog-card-time"><%= article.readTime %></span>
+            </div>
+          </a>
+          <div class="blog-card-tags">
+            <% article.tags.slice(0, 3).forEach(tag => { %>
+              <span class="blog-tag">#<%= tag %></span>
+            <% }); %>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+    
+    <!-- Pagination -->
+    <% if (totalPages > 1) { %>
+      <nav class="pagination">
+        <% if (currentPage > 1) { %>
+          <a href="/blog?page=<%= currentPage - 1 %>" class="pagination-btn prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Previous
+          </a>
+        <% } %>
+        
+        <div class="pagination-numbers">
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="/blog?page=<%= i %>" class="pagination-number <%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+          <% } %>
+        </div>
+        
+        <% if (currentPage < totalPages) { %>
+          <a href="/blog?page=<%= currentPage + 1 %>" class="pagination-btn next">
+            Next
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        <% } %>
+      </nav>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
